@@ -1,0 +1,92 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color: #1E1E1C;
+}
+
+.popup{
+    background-color: #1E1E1C;
+    width:1000px;
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%, -50% );
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: sans-serif;
+    text-align: center;
+    border: solid 0.5rem;   
+    border-color: #F0BB69;
+    display:none;
+}
+
+.close{
+    display : block;
+    margin : 0 0 20px auto;
+    background: transparent;
+    font-size: 30px;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #F0BB69 ;
+
+}
+
+.popup h2{
+    margin-top: -20px;
+    color: white;
+    font-family: Agbalumo;
+    font-size: 3rem;
+    text-decoration: underline;
+ }
+ .popup p{
+     font-size: 14px;
+     text-align: justify;
+     margin: 20px 0;
+     line-height: 25px;
+     color: white;
+     font-size: 1.5rem;
+ }
+
+/* ... (vos styles existants) ... */
+
+.button-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 85%; /* Ajustez la position verticale au besoin */
+    text-align: center;
+}
+
+.button-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.button-container li {
+    display: inline-block;
+    margin-right: 10px; /* Ajustez la marge à droite selon vos besoins */
+}
+
+.button-container button {
+    background-color: #F0BB69;
+    color: #1E1E1C;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px; /* Ajustez la marge basse selon vos besoins */
+}
+
+/* ... (vos styles existants) ... */
