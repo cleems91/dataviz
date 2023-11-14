@@ -1,5 +1,5 @@
 // Utilise d3.json pour charger le fichier JSON des lauréats du prix Nobel
-d3.json("data.json").then(function (data) {
+d3.json("json/data.json").then(function (data) {
     // Les données du JSON sont maintenant dans l'objet data
 
     // Sélectionne le menu déroulant
@@ -61,7 +61,7 @@ function displayLaureates(year, laureatesByYear) {
 // Fonction pour afficher la carte
 function displayMap(year, laureatesByYear) {
     // Utilise d3.json pour charger le fichier TopoJSON du monde
-    d3.json("world-110m.json").then(function (world) {
+    d3.json("json/world-110m.json").then(function (world) {
         // Vérifie si la variable topojson est définie
         if (typeof topojson !== 'undefined') {
             // Sélectionne le conteneur de la carte
