@@ -1,116 +1,166 @@
-// Utilise d3.json pour charger le fichier JSON des lauréats du prix Nobel
-d3.json("json/data.json").then(function (data) {
-    // Les données du JSON sont maintenant dans l'objet data
-
-    // Sélectionne le menu déroulant
-    const yearDropdown = d3.select("#year-dropdown");
-
-    // Remplis le menu déroulant avec les années disponibles
-    yearDropdown.selectAll("option")
-        .data(Object.keys(data))
-        .enter()
-        .append("option")
-        .text(year => year)
-        .attr("value", year => year);
-
-    // Ajoute un événement de changement au menu déroulant
-    yearDropdown.on("change", function () {
-        const selectedYear = this.value;
-        // Efface le contenu précédent
-        d3.select("#result-container").html("");
-        // Appelle la fonction pour afficher les lauréats de l'année sélectionnée
-        displayLaureates(selectedYear, data[selectedYear]);
-        // Appelle la fonction pour afficher la carte
-        displayMap(selectedYear, data[selectedYear]);
-    });
-
-}).catch(function (error) {
-    // En cas d'erreur lors du chargement du fichier JSON des lauréats du prix Nobel
-    console.error('Erreur lors du chargement du fichier JSON :', error);
-});
-
-// Fonction pour afficher les lauréats dans la div
-function displayLaureates(year, laureatesByYear) {
-    // Sélectionne le conteneur
-    const resultContainer = d3.select("#result-container");
-
-    // Ajoute une section pour chaque année
-    const yearSection = resultContainer.append("div");
-
-    // Ajoute le nom de l'année comme titre
-    yearSection.append("h2")
-        .text(`Année ${year}`);
-
-    // Boucle à travers chaque catégorie pour cette année
-    Object.keys(laureatesByYear).forEach(category => {
-        // Ajoute le nom de la catégorie comme titre
-        yearSection.append("h3")
-            .text(category);
-
-        // Ajoute une liste non ordonnée pour les lauréats de cette catégorie
-        const laureatesList = yearSection.append("ul");
-
-        // Ajoute chaque lauréat à la liste
-        laureatesByYear[category].forEach(laureate => {
-            laureatesList.append("li")
-                .text(`${laureate.nom} - ${laureate.pays}`);
-        });
-    });
-}
-
-// Fonction pour afficher la carte
-function displayMap(year, laureatesByYear) {
-    // Utilise d3.json pour charger le fichier TopoJSON du monde
-    d3.json("json/world-110m.json").then(function (world) {
-        // Vérifie si la variable topojson est définie
-        if (typeof topojson !== 'undefined') {
-            // Sélectionne le conteneur de la carte
-            const mapContainer = d3.select("#map-container");
-
-            // Crée une projection cartographique
-            const projection = d3.geoNaturalEarth1(); // Utilise d3.geoNaturalEarth1 à la place
-
-            // Crée un générateur de chemins pour convertir les données TopoJSON en chemins SVG
-            const pathGenerator = d3.geoPath().projection(projection);
-
-            // Ajoute un groupe SVG pour la carte
-            const svg = mapContainer.append("svg")
-                .attr("width", 800)
-                .attr("height", 500);
-
-            // Ajoute les frontières du monde
-            svg.append("path")
-                .datum(topojson.mesh(world))
-                .attr("class", "boundary")
-                .attr("d", pathGenerator);
-
-            // Crée un groupe pour chaque catégorie
-            const categoryGroup = svg.append("g");
-
-            // Boucle à travers chaque catégorie pour cette année
-            Object.keys(laureatesByYear).forEach(category => {
-                // Ajoute chaque lauréat à la carte
-                laureatesByYear[category].forEach(laureate => {
-                    // Recherche le pays du lauréat dans les données TopoJSON
-                    const countryFeature = world.objects.countries
-                        .geometries.find(country => country.properties.name === laureate.pays);
-
-                    if (countryFeature) {
-                        // Ajoute un chemin pour représenter le pays
-                        categoryGroup.append("path")
-                            .datum(countryFeature)
-                            .attr("class", "country")
-                            .attr("d", pathGenerator)
-                            .style("fill", "blue");  // Changez la couleur selon vos besoins
-                    }
-                });
-            });
-
-        } else {
-            console.error('La bibliothèque TopoJSON n\'est pas chargée.');
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("json/data.json")
+      .then(response => response.json())
+      .then(data => {
+        createBarChart(data);
+      });
+  
+    function createBarChart(data) {
+      var ctx = document.getElementById("myVerticalBarChart").getContext("2d");
+  
+      var colors = ["#FF7B7B", "#5EFF64", "#3357FF", "#D376FF", "#6FC2FF", "#F1FF4C"];
+  
+      var config = {
+        type: "bar",
+        data: {
+          labels: Object.keys(data),
+          datasets: getDatasets(data, colors),
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true,
+            },
+          },
+          plugins: {
+            
+            legend: {
+              display: true,
+              position: "right",
+              align: 'center',
+              labels: {
+                boxWidth: 100,
+                usePointStyle: true,
+                padding: 40,
+                font: {
+                  family: 'Arial',
+                  size: 20,
+                  weight: 'bold',
+                },
+              },
+            },
+            
+            tooltip: {
+              enabled: false,
+            },
+          },
+          layout: {
+            padding: {
+              left: 50,
+              right: 50,
+            },
+          },
+          animation: {
+            onComplete: function (animation) {},
+          },
+          onHover: function (event, elements) {
+            if (elements && elements.length > 0) {
+              // Obtenir l'index du premier élément survolé
+              var index = elements[0].index;
+  
+              // Obtenir l'année correspondante
+              var year = Object.keys(data)[index];
+  
+              // Obtenir les données du JSON pour l'année spécifique
+              var yearData = data[year];
+  
+              // Construire le texte pour la fenêtre contextuelle
+              var popupText = buildTooltipText(year, yearData);
+  
+              // Afficher la fenêtre contextuelle au survol
+              showTooltip(event, popupText);
+            } else {
+              // Masquer la fenêtre contextuelle si aucun élément n'est survolé
+              hideTooltip();
+            }
+          },
+        },
+      };
+  
+      // Création du graph
+      var myChart = new Chart(ctx, config);
+  
+      // Fonction pour construire le texte de la fenêtre contextuelle
+      function buildTooltipText(year, yearData) {
+        var popupText = `<strong>Année : ${year}<br></strong><br>`;
+        for (var category in yearData) {
+          var laureates = yearData[category];
+          popupText += `<strong>${category}</strong><br>`;
+          laureates.forEach(laureate => {
+            popupText += `${laureate.nom}: ${laureate.pays}<br>`;
+          });
         }
-    }).catch(function (error) {
-        // En cas d'erreur lors du chargement du fichier TopoJSON du monde
-        console.error('Erreur lors du chargement du fichier TopoJSON :', error);
-    });
-}
+        return popupText;
+      }
+  
+      // Fonction pour afficher la fenêtre contextuelle
+      function showTooltip(event, text) {
+        var tooltip = document.getElementById("chart-tooltip");
+        var popupContent = document.createElement("div");
+        popupContent.innerHTML = text;
+        tooltip.innerHTML = "";
+        tooltip.appendChild(popupContent);
+        tooltip.style.display = "block";
+  
+        // Ajuster la position de la fenêtre contextuelle
+        tooltip.style.left = window.innerWidth - event.clientX > 300
+          ? event.clientX + 10 + "px"
+          : event.clientX - 310 + "px";
+  
+        tooltip.style.top = event.clientY + 10 + "px";
+      }
+  
+      // Fonction pour masquer la fenêtre contextuelle
+      function hideTooltip() {
+        var tooltip = document.getElementById("chart-tooltip");
+        tooltip.style.display = "none";
+      }
+    }
+  
+    function getDatasets(data, colors) {
+      var datasets = [];
+  
+      for (var i = 0; i < colors.length; i++) {
+        var category = Object.keys(data[Object.keys(data)[0]])[i];
+        var dataset = {
+          label: category,
+          data: [],
+          backgroundColor: colors[i],
+        };
+  
+        for (var year in data) {
+          var laureatesCount = data[year][category].length;
+          dataset.data.push(laureatesCount);
+        }
+  
+        datasets.push(dataset);
+      }
+  
+      return datasets;
+    }
+  });
+  
+  // Fonction pour ouvrir la fenêtre contextuelle des mentions légales
+  function openLegalPopup() {
+    var legalPopup = document.getElementById("legal-popup-container");
+    legalPopup.style.display = "flex";
+  }
+  
+  // Fonction pour fermer la fenêtre contextuelle des mentions légales
+  function closeLegalPopup() {
+    var legalPopup = document.getElementById("legal-popup-container");
+    legalPopup.style.display = "none";
+  }
+  
+  // Fonction pour fermer la fenêtre contextuelle principale
+  function closePopup() {
+    var mainPopup = document.getElementById("popup-container");
+    mainPopup.style.display = "none";
+  }
+
+  

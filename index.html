@@ -3,57 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOBELVIZ</title>
     <link rel="stylesheet" href="styles.css">
-     <link rel="stylesheet" href="loader/chargement.css">
-     <script src="loader/app.js"></script>
-
-     <link rel="stylesheet" href="popup/popup.css">
-     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
-    <link rel="manifest" href="favicons/site.webmanifest">
-    <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-     <link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css2?family=Jomhuria&display=swap" rel="stylesheet">
-     <script src="https://d3js.org/d3.v6.min.js"></script>
-     <script src="https://unpkg.com/topojson-client@3"></script>
-     <script src="script.js"></script>
-
-
-
+    <script src="loading/load.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,300&display=swap" rel="stylesheet">
+    <title>NOBELVIZ</title>
 </head>
 <body>
 
-    <div class="preloader">
+    <div id="loading-container" class="loading-container" role="status" aria-live="polite">
         <h1>NOBELVIZ</h1>
-        <span class="loader"></span>
+        <div class="loader" aria-hidden="true"></div>
     </div>
-    <div class="popup">
 
-        <!--Bouton fermé-->
-        <button class="close" id="close">&times;</button>
-
-          <!--Informations-->
-          <h2>Explications du Projet</h2>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident dolorem laudantium quod est exercitationem, dolor consequuntur autem. Asperiores in tenetur culpa magnam fugit quisquam explicabo quibusdam aut repellendus, necessitatibus laudantium.</p>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident dolorem laudantium quod est exercitationem, dolor consequuntur autem. Asperiores in tenetur culpa magnam fugit quisquam explicabo quibusdam aut repellendus, necessitatibus laudantium.</p>
+    <div id="content" class="content">
+        <div class="navbar">
+            <div class="logo">
+                <img src="img/logo.png" alt="Logo">
+                NOBELVIZ
+            </div>
+            <div class="info-box">
+                <div role="button" tabindex="0" onclick="openLegalPopup()">Mentions legales</div>
+                <div id="legal-popup-container" class="popup-container" aria-hidden="true">
+                    <div class="popup">
+                        <span class="close-btn" role="button" tabindex="0" onclick="closeLegalPopup()">&times;</span>
+                        <h1>Mentions Legales</h1>
+                        <p>Ceci sont des informations légales fictives. Ce texte sert d'exemple uniquement.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ante vel leo pulvinar pretium...</p>
+                        <button role="button" tabindex="0" onclick="closeLegalPopup()" class="enter-button">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-<!-- Ajoute un conteneur pour afficher les données (peut être une div, un svg, etc.) -->
-<!-- Ajoute un menu déroulant pour les années -->
-<select id="year-dropdown"></select>
-<!-- Ajoute un conteneur pour afficher les données -->
-<div id="result-container"></div>
-<div id="map-container"></div>
-<!-- Ajoute le fichier JavaScript externe -->
-<script src="loader/loader.js"></script>
-
-
+    <div id="popup-container" class="popup-container" aria-hidden="true">
+        <div class="popup">
+            <span class="close-btn" role="button" tabindex="0" onclick="closePopup()">&times;</span>
+            <h1>EXPLICATIONS DU SITE</h1>
+            <p>
+                Le site a pour objectif de visualiser les données extraites d'un fichier .json, notamment celles liées aux lauréats des prix Nobel. Il offre une représentation visuelle des informations concernant les personnes distinguées ainsi que de leur pays d'origine gagnant.</p>
+            <p>
+                Merci de survoler l'un des 23 graphiques pour découvrir tous les noms des lauréats ainsi que leur pays d'origine gagnant. Vous pouvez cliquer sur les éléments de la légende pour soit ajouter ou supprimer des catégories.</p>
+            <button role="button" tabindex="0" onclick="closePopup()" class="enter-button">ENTRER</button>
+        </div>
+    </div>
+    <div class="chart-container">
+        <canvas id="myVerticalBarChart" class="animated-chart" aria-label="Graphique des prix Nobel" role="img"></canvas>
+        <div id="chart-tooltip" class="chart-tooltip" role="tooltip" aria-hidden="true"></div>
+    </div>
 
 </body>
 </html>
-
-

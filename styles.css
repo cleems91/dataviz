@@ -1,92 +1,274 @@
-*,
-*:before,
-*:after{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1E1E1C;
+  overflow: hidden;
 }
 
-
-body{
-    background-color: #1E1E1C;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1E1E1C;
+  padding: 10px 20px;
 }
 
-.popup{
-    background-color: #1E1E1C;
-    width:1000px;
-    padding: 30px 40px;
-    position: absolute;
-    transform: translate(-50%, -50% );
-    left: 50%;
-    top: 50%;
-    border-radius: 8px;
-    font-family: sans-serif;
-    text-align: center;
-    border: solid 0.5rem;   
-    border-color: #F0BB69;
-    display:none;
+.logo {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Vina Sans', sans-serif;
 }
 
-.close{
-    display : block;
-    margin : 0 0 20px auto;
-    background: transparent;
-    font-size: 30px;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: #F0BB69 ;
-
+.logo img {
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
-.popup h2{
-    margin-top: -20px;
-    color: white;
-    font-family: Agbalumo;
-    font-size: 3rem;
-    text-decoration: underline;
- }
- .popup p{
-     font-size: 14px;
-     text-align: justify;
-     margin: 20px 0;
-     line-height: 25px;
-     color: white;
-     font-size: 1.5rem;
- }
-
-/* ... (vos styles existants) ... */
-
-.button-container {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 85%; /* Ajustez la position verticale au besoin */
-    text-align: center;
+.info-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-.button-container ul {
-    list-style: none;
-    padding: 0;
+.info-box div {
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  background-color: #F0BB69;
+  border-radius: 20px;
+  font-weight: bold;
+  font-family: 'Kanit', sans-serif;
 }
 
-.button-container li {
-    display: inline-block;
-    margin-right: 10px; /* Ajustez la marge à droite selon vos besoins */
+.info-box div:first-child {
+  font-size: 1.2em;
 }
 
-.button-container button {
-    background-color: #F0BB69;
-    color: #1E1E1C;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 10px; /* Ajustez la marge basse selon vos besoins */
+.info-box div:last-child {
+  font-size: 1.2em;
 }
 
-/* ... (vos styles existants) ... */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1E1E1C;
+  color: white;
+  font-family: 'Vina Sans', sans-serif;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  font-family: 'Vina Sans', sans-serif;
+}
+
+.loader {
+  border: 6px solid #fff;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.content {
+  display: none;
+}
+
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup {
+  background: #1E1E1C;
+  padding: 20px;
+  border-radius: 10px;
+  border: 7px solid #F0BB69;
+  position: relative;
+  max-width: 600px;
+  width: 80%;
+  text-align: center;
+  color: white;
+  font-family: 'Kanit', sans-serif;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #F0BB69;
+}
+
+h1 {
+  color: #F0BB69;
+  font-weight: bold;
+}
+
+.enter-button {
+  background-color: #F0BB69;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.enter-button:hover {
+  background-color: #D89C4E;
+}
+
+#legal-popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 28, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#legal-popup-container .popup {
+  background: #1E1E1C;
+  padding: 20px;
+  border-radius: 10px;
+  border: 7px solid #F0BB69;
+  position: relative;
+  max-width: 600px;
+  width: 80%;
+  text-align: center;
+  color: white;
+}
+
+#legal-popup-container .enter-button {
+  background-color: #F0BB69;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+#legal-popup-container .enter-button:hover {
+  background-color: #D89C4E;
+}
+
+#colors-popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 28, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#colors-popup-container .popup {
+  background: #1E1E1C;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #F0BB69;
+  position: relative;
+  max-width: 600px;
+  width: 80%;
+  text-align: center;
+  color: white;
+}
+
+#colors-popup-container .enter-button {
+  background-color: #F0BB69;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+#colors-popup-container .enter-button:hover {
+  background-color: #D89C4E;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  margin-left: 200px;
+  margin-bottom: 1000px;
+
+  background-color: #1E1E1C;
+}
+
+#myVerticalBarChart {
+  border: 8px solid #F0BB69;
+  border-radius: 10px;
+  height: 80vh;
+  width: 80vw;
+  transition: all 0.5s ease;
+}
+
+#chart-tooltip {
+  position: fixed;
+  background-color: #1E1E1C;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid #F0BB69;
+  display: none;
+  z-index: 999;
+  text-align: center;
+  max-width: 300px;
+  left: 10px;
+  top: 130px;
+}
+
+#chart-tooltip strong {
+  border-bottom: 1px solid white;
+  color: #F0BB69;
+}
+
+.animated-chart {
+  animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
