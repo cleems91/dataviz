@@ -10,10 +10,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="h       ttps://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,300&display=swap" rel="stylesheet">
-    <title>NOBELVIZ</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+    <title>NobelViz - La course aux lauréats</title>
 </head>
 <body>
 
@@ -28,15 +34,22 @@
                 <img src="img/logo.png" alt="Logo">
                 NOBELVIZ
             </div>
+            
             <div class="info-box">
                 <div role="button" tabindex="0" onclick="openLegalPopup()">Mentions legales</div>
                 <div id="legal-popup-container" class="popup-container" aria-hidden="true">
                     <div class="popup">
                         <span class="close-btn" role="button" tabindex="0" onclick="closeLegalPopup()">&times;</span>
-                        <h1>Mentions Legales</h1>
-                        <p>Ceci sont des informations légales fictives. Ce texte sert d'exemple uniquement.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ante vel leo pulvinar pretium...</p>
-                        <button role="button" tabindex="0" onclick="closeLegalPopup()" class="enter-button">Fermer</button>
+                        <h2>Editeur du site</h2>
+                        <p class="mlegal">Clément Mbarga-Minsi, Louis Breux, Jayvin Chenard</p>
+                        <h2>Conception</h2>
+                        <p class="mlegal">Ce site a été créé suite à une collaboration entre plusieurs contributeurs. Les droits d’auteur et les responsabilités sont définis comme suit : <br>Clément Mbarga-Minsi : Développeur web 
+                        <br>Louis Breux: Graphiste et rédacteur 
+                        <br>Jayvin Chenard: Graphiste et rédacteur</p>
+                        <h2>Hébergeur</h2>
+                        <p class="mlegal">GitHub, Inc.<br>88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis</p>
+                        <h2>Commentaire</h2>
+                        <p class="mlegal">Notre projet ne relève pas du champ d'application du RGPD, car il ne traite pas de données personnelles soumises à cette réglementation européenne sur la protection des données. Nous avons seulement utilisé le site Wikipédia : <a href="https://fr.wikipedia.org/wiki/Liste_des_r%C3%A9cipiendaires_du_prix_Nobel">Liste des récipiendaires du prix Nobel </a>pour trouver les informations dont nous avions besoin. Le contenu de Wikipédia est disponible sous licence libre, ce qui permet à quiconque de réutiliser les articles et donc de propager le savoir, même pour un projet commercial, mais à condition de citer l'auteur</p>
                     </div>
                 </div>
             </div>
@@ -49,7 +62,7 @@
             <p>
                 Le site a pour objectif de visualiser les données extraites d'un fichier .json, notamment celles liées aux lauréats des prix Nobel. Il offre une représentation visuelle des informations concernant les personnes distinguées ainsi que de leur pays d'origine gagnant.</p>
             <p>
-                Merci de survoler l'un des 23 graphiques pour découvrir tous les noms des lauréats ainsi que leur pays d'origine gagnant. Vous pouvez cliquer sur les éléments de la légende pour soit ajouter ou supprimer des catégories.</p>
+                Merci de survoler l'un des 23 diagrammes pour découvrir tous les noms des lauréats ainsi que leur pays d'origine gagnant. Vous pouvez cliquer sur les éléments de la légende pour soit ajouter ou supprimer des catégories.</p>
             <button role="button" tabindex="0" onclick="closePopup()" class="enter-button">ENTRER</button>
         </div>
     </div>
