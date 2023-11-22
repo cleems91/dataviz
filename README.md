@@ -1,6 +1,6 @@
 # Lien GitHub #
 
-https://cleems91.github.io/dataviz/
+https://cleems91.github.io/nobelviz/
 
 # Contexte du projet #
 Le site Nobelviz a été réalisé dans le cadre d'un projet pédagogique porté par les étudiants Mbarga-Minsi Clément, Breux Louis et Chenard Jayvin, sous la direction de Charpentier Gaëlle. Ce projet a été réalisé dans le cadre du programme  B.U.T Métiers du Multimédia et de l'Internet à l'IUT Gustave Eiffel, dans le but d'étudier et de mettre en pratique les compétences acquises dans le domaine du développement web.
